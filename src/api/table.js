@@ -7,3 +7,11 @@ export function getList(params) {
     params
   })
 }
+
+export function getBookList(params) {
+  return request({
+    url: '/books',
+    method: 'get',
+    params
+  })
+}

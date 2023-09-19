@@ -1,26 +1,36 @@
 <template>
   <div class="app-container">
-    <el-table
-      v-loading="listLoading"
-      :data="list"
-      element-loading-text="Loading"
-      border
-      fit
-      highlight-current-row
-    >
-      <el-table-column align="center" label="ID" width="95">
+    <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
+      <el-table-column align="center" label="ID">
         <template slot-scope="scope">
           {{ scope.$index }}
         </template>
       </el-table-column>
-      <el-table-column label="UserName">
+      <el-table-column label="书名">
         <template slot-scope="scope">
-          {{ scope.row.username }}
+          {{ scope.row.name }}
         </template>
       </el-table-column>
-      <el-table-column label="Email">
+      <el-table-column label="作者">
         <template slot-scope="scope">
-          {{ scope.row.email }}
+          {{ scope.row.author }}
+        </template>
+      </el-table-column>
+
+      <el-table-column>
+        <el-popover v-model="visible" placement="top" width="160">
+          <p>这是一段内容这是一段内容确定删除吗？</p>
+          <div style="text-align: right; margin: 0">
+            <el-button size="mini" type="text" @click="visible = false">取消</el-button>
+            <el-button type="primary" size="mini" @click="visible = false">确定</el-button>
+          </div>
+          <el-button slot="reference">删除</el-button>
+        </el-popover>
+      </el-table-column>
+
+      <el-table-column label="是否删除">
+        <template slot-scope="scope">
+          {{ scope.row.is_delete ? '是' : '否' }}
         </template>
       </el-table-column>
       <!-- <el-table-column label="Author" width="110" align="center">
@@ -47,9 +57,9 @@
     </el-table>
   </div>
 </template>
-
 <script>
-import { getList } from '@/api/table'
+// import { getList } from '@/api/table'
+import { getBookList } from '@/api/table'
 
 export default {
   filters: {
@@ -65,16 +75,25 @@ export default {
   data() {
     return {
       list: null,
-      listLoading: true
+      listLoading: true,
+      visible: false
     }
   },
   created() {
-    this.fetchData()
+    // this.fetchData()
+    this.fetchBook()
   },
   methods: {
-    fetchData() {
+    // fetchData() {
+    //   this.listLoading = true
+    //   getList().then(response => {
+    //     this.list = response.data.results
+    //     this.listLoading = false
+    //   })
+    // },
+    fetchBook() {
       this.listLoading = true
-      getList().then(response => {
+      getBookList().then(response => {
         this.list = response.data.results
         this.listLoading = false
       })

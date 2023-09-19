@@ -8,6 +8,14 @@ export function login(data) {
   })
 }
 
+export function createUser(data) {
+  return request({
+    url: '/users/create/',
+    method: 'post',
+    data
+  })
+}
+
 export function getInfo(token) {
   return request({
     url: '/info/',
@@ -16,9 +24,9 @@ export function getInfo(token) {
   })
 }
 
-export function logout() {
-  return request({
-    url: '/vue-admin-template/user/logout',
-    method: 'post'
-  })
-}
+// export function logout() {
+//   return request({
+//     url: '/vue-admin-template/user/logout',
+//     method: 'post'
+//   })
+// }
